@@ -8,33 +8,26 @@ int board[4][4] = {0};
 void random(); // Assegna il valore alle celle vuote
 void startBoard(); // Assegna due celle randomiche 
 
-void userMove();
+int userMove();
 void moveUp();
 void moveDown();
 void moveLeft();
 void moveRight();
 
 void printBoard();
+int gameOver();
 
 int main() {
 
-   puts("\nStartup\n");
+   //Inizializza la matrice
    startBoard();
-   printBoard();
    
-   puts("\nPrimo Rendom\n");
-   random();
-   printBoard();
-   
-   puts("\nMoveLeft\n");
-   moveLeft();
-   random();
-   printBoard();
-   
-   puts("\nMoveDown\n");
-   moveDown();
-   random();
-   printBoard();
+   do { 
+      printBoard();
+      puts("\nInserire le azioni: W -> Up\tS -> Down\tA -> Left\tD -> Right\n(Premi P per uscire)\n\n");
+      userMove();
+      random();
+   } while (!gameOver() ^ userMove());
 
    return 0;
 }
@@ -67,23 +60,24 @@ void startBoard() {
   } while (i < 2);
 }
 
-void userMove() {
-  char user_move = getchar();
-  user_move ^= 32;
+int userMove() {
+   char user_move = getchar();
+   user_move ^= 32;
 
-  switch (user_move) {
-  case 'W': moveUp();
-    break;
-  case 'A': moveLeft();
-    break;
-  case 'S': moveDown();
-    break;
-  case 'D': moveRight();
-    break;
-
-  default:
-    break;
-  }
+   switch (user_move) {
+      case 'W': moveUp();
+         break;
+      case 'A': moveLeft();
+         break;
+      case 'S': moveDown();
+         break;
+      case 'D': moveRight();
+         break;
+      case 'P': return 1;
+   default:
+   break;
+   }
+   return 0;
 }
 
 
@@ -153,14 +147,59 @@ void moveLeft() {
 
 
 void moveRight() {
-   cout << "Suck ma booal";
+
+   for (int i = 0; i < 4; ++i) {
+      for (int j = 2; j >= 0; --j) {
+         for (int k = j; k < 3; k++) {
+            if (board[i][k+1] == 0) {
+               board[i][k+1] = board[i][k]; //spostamento elemento
+               board[i][k] = 0;
+            }
+
+            else if ( board[i][k + 1] & board[i][k] ) {
+               board[i][k + 1] *= 2;
+               board[i][k] = 0;
+            } 
+
+            else { break; }
+         } //* Fine Ciclo
+      }
+   }
+
 }
 
 void printBoard() {
+   system("cls");
    for (int i = 0; i < 4; ++i) {
       for (int j = 0; j < 4; ++j) {
          cout << "| " << board[i][j] << " |";
       }
       cout << endl;
    }
+}
+
+int gameOver() {
+
+   // Diagonali
+   if (board[0][0] == board[1][0] || board[0][0] == board[0][1]) { return 0; }
+   if (board[0][3] == board[0][2] || board[0][3] == board[1][3]) { return 0; }
+   if (board[3][0] == board[2][0] || board[3][0] == board[3][1]) { return 0; }
+   if (board[3][3] == board[2][3] || board[3][3] == board[3][2]) { return 0; }
+
+   if (board[0][1] == board[0][2]) { return 0; }
+   if (board[1][0] == board[2][0]) { return 0; }
+   if (board[3][1] == board[3][2]) { return 0; }
+   if (board[1][3] == board[2][3]) { return 0; }
+
+   for (int i = 1; i < 3; ++i) {
+      for (int j = 1; j < 3; ++j) {
+         if (board[i][j] == board[i-1][j] ||
+             board[i][j] == board[i+1][j] ||
+             board[i][j] == board[i][j-1] ||
+             board[i][j] == board[i][j+1]
+             ) { return 0; }
+      }
+   }
+
+   return 1;
 }
