@@ -71,10 +71,98 @@ void userMove() {
    }
 }
 
-void moveUp() {
+void moveDown() {
+	int valore = 0;
+   for (int i = 3; i >= 0; --i) {
+      for (int j = 1; j < 4; ++j) {
+         for(int k = j; k > 0; k--){
+			 if (board[k-1][i] == 0){ 
+				 board[k-1][i] == board[k][i]; //spostamento elemento
+				}
+			 else if(board[k-1][i] != 0){ //elementi uguali
+				valore = somma(board[k-1][i], board[k][i]); 
+								if (valore != 0){ //possibile somma tra gli elementi
+									board[k-1][i] *=2;
+									board[k][i] == 0;
+								}else{
+									break; //impossibile somma tra gli elementi
+										}
+						  
+				 
+			 
+			 }
+      }  
+   }
+}
+
+void moveLeft() {
+	int valore = 0;
    for (int i = 0; i < 4; ++i) {
       for (int j = 1; j < 4; ++j) {
-         
+         for(int k = j; k > 0; k--){
+			 if (board[k-1][i] == 0){ 
+				 board[k-1][i] == board[k][i]; //spostamento elemento
+				}
+			 else if(board[k-1][i] != 0){ //elementi uguali
+				valore = somma(board[k-1][i], board[k][i]); 
+								if (valore != 0){ //possibile somma tra gli elementi
+									board[k-1][i] *=2;
+									board[k][i] == 0;
+								}else{
+									break; //impossibile somma tra gli elementi
+										}
+						  
+				 
+			 
+			 }
+      }  
+   }
+}
+
+void moveUp() {
+	int valore = 0;
+   for (int i = 0; i < 4; ++i) {
+      for (int j = 1; j < 4; ++j) {
+         for(int k = j; k >= 0; k--){
+			 if (board[k-1][i] == 0){ 
+				 board[k-1][i] == board[k][i]; //spostamento elemento
+				}
+			 else if(board[k-1][i] != 0){ //elementi uguali
+				valore = somma(board[k-1][i], board[k][i]); 
+								if (valore != 0){ //possibile somma tra gli elementi
+									board[k-1][i] *=2;
+									board[k][i] == 0;
+								}else{
+									break; //impossibile somma tra gli elementi
+										}
+						  
+				 
+			 
+			 }
+      }  
+   }
+}
+
+void moveUp() {
+	int valore = 0;
+   for (int i = 0; i < 4; ++i) {
+      for (int j = 1; j < 4; ++j) {
+         for(int k = j; k > 0; k--){
+			 if (board[k-1][i] == 0){ 
+				 board[k-1][i] == board[k][i]; //spostamento elemento
+				}
+			 else if(board[k-1][i] != 0){ //elementi uguali
+				valore = somma(board[k-1][i], board[k][i]); 
+								if (valore != 0){ //possibile somma tra gli elementi
+									board[k-1][i] *=2;
+									board[k][i] == 0;
+								}else{
+									break; //impossibile somma tra gli elementi
+										}
+						  
+				 
+			 
+			 }
       }  
    }
 }
