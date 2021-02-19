@@ -27,7 +27,7 @@ int main() {
       puts("\nInserire le azioni: W -> Up\tS -> Down\tA -> Left\tD -> Right\n(Premi P per uscire)\n\n");
       userMove();
       random();
-   } while (!gameOver() ^ userMove());
+   } while (!gameOver() && userMove());
 
    return 0;
 }
@@ -170,6 +170,7 @@ void moveRight() {
 
 void printBoard() {
    system("cls");
+   puts("\n");
    for (int i = 0; i < 4; ++i) {
       for (int j = 0; j < 4; ++j) {
          cout << "| " << board[i][j] << " |";
