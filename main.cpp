@@ -26,12 +26,12 @@ int main() {
    random();
    printBoard();
    
-   puts("\nPrimo MoveUp\n");
-   moveUp();
+   puts("\nMoveLeft\n");
+   moveLeft();
    random();
    printBoard();
    
-   puts("\nSecondo MoveDown\n");
+   puts("\nMoveDown\n");
    moveDown();
    random();
    printBoard();
@@ -129,8 +129,29 @@ void moveDown() {
 }
 
 void moveLeft() {
-   cout << "Suck ma booal";
+
+   for (int i = 0; i < 4; ++i) {
+      for (int j = 1; j < 4; ++j) {
+         for (int k = j; k > 0; k--) {
+            if (board[i][k-1] == 0) {
+               board[i][k-1] = board[i][k]; //spostamento elemento
+               board[i][k] = 0;
+            }
+
+            else if ( board[i][k - 1] & board[i][k] ) {
+               board[i][k-1] *= 2;
+               board[i][k] = 0;
+            } 
+
+            else { break; }
+         } //* Fine Ciclo
+      }
+   }
 }
+
+
+
+
 void moveRight() {
    cout << "Suck ma booal";
 }
