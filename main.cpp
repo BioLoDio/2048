@@ -1,32 +1,45 @@
 #include <iostream>
-
 #include <time.h>
 
 using namespace std;
 
-int board[4][4] = {
-  0
-};
+int board[4][4] = {0};
 
-void random(int * board[]); // Assegna il valore alle celle vuote
-void startBoard(int * board[]); // Assegna due celle randomiche 
+void random(); // Assegna il valore alle celle vuote
+void startBoard(); // Assegna due celle randomiche 
 
-// Comandi
-int somma(int first_element, int second_element);
 void userMove();
 void moveUp();
 void moveDown();
 void moveLeft();
 void moveRight();
 
-void endGame();
+void printBoard();
 
 int main() {
 
-  return 0;
+   puts("\nStartup\n");
+   startBoard();
+   printBoard();
+   
+   puts("\nPrimo Rendom\n");
+   random();
+   printBoard();
+   
+   puts("\nPrimo MoveUp\n");
+   moveUp();
+   random();
+   printBoard();
+   
+   puts("\nSecondo MoveDown\n");
+   moveDown();
+   random();
+   printBoard();
+
+   return 0;
 }
 
-void random(int * board[]) {
+void random() {
   int i = 0;
   do {
     srand(time(NULL));
@@ -40,7 +53,7 @@ void random(int * board[]) {
   } while (i < 1);
 }
 
-void startBoard(int * board[]) {
+void startBoard() {
   int i = 0;
   do {
     srand(time(NULL));
@@ -56,16 +69,16 @@ void startBoard(int * board[]) {
 
 void userMove() {
   char user_move = getchar();
-  user_move |= 32;
+  user_move ^= 32;
 
   switch (user_move) {
-  case 'W':
+  case 'W': moveUp();
     break;
-  case 'A':
+  case 'A': moveLeft();
     break;
-  case 'S':
+  case 'S': moveDown();
     break;
-  case 'D':
+  case 'D': moveRight();
     break;
 
   default:
@@ -73,86 +86,60 @@ void userMove() {
   }
 }
 
-void moveDown() {
-    int valore = 0;
-    for (int i = 3; i >= 0; --i) {
+
+void moveUp() {
+
+   for (int i = 0; i < 4; ++i) {
       for (int j = 1; j < 4; ++j) {
-        for (int k = j; k > 0; k--) {
-          if (board[k - 1][i] == 0) {
-            board[k - 1][i] == board[k][i]; //spostamento elemento
-          } else if (board[k - 1][i] != 0) { //elementi uguali
-            valore = somma(board[k - 1][i], board[k][i]);
-            if (valore != 0) { //possibile somma tra gli elementi
-              board[k - 1][i] *= 2;
-              board[k][i] == 0;
-            } else {
-              break; //impossibile somma tra gli elementi
+         for (int k = j; k > 0; k--) {
+            if (board[k - 1][i] == 0) {
+               board[k - 1][i] = board[k][i]; //spostamento elemento
+               board[k][i] = 0;
             }
 
-          }
-        }
-      }
-    }
-
-    void moveLeft() {
-        int valore = 0;
-        for (int i = 0; i < 4; ++i) {
-          for (int j = 1; j < 4; ++j) {
-            for (int k = j; k > 0; k--) {
-              if (board[k - 1][i] == 0) {
-                board[k - 1][i] == board[k][i]; //spostamento elemento
-              } else if (board[k - 1][i] != 0) { //elementi uguali
-                valore = somma(board[k - 1][i], board[k][i]);
-                if (valore != 0) { //possibile somma tra gli elementi
+            else if ( board[k - 1][i] & board[k][i] ) {
                   board[k - 1][i] *= 2;
-                  board[k][i] == 0;
-                } else {
-                  break; //impossibile somma tra gli elementi
-                }
+                  board[k][i] = 0;
+               } 
 
-              }
-            }
-          }
-        }
+            else { break; }
+         } //* Fine Ciclo
+      }
+   }
+}
 
-        void moveUp() {
-            int valore = 0;
-            for (int i = 0; i < 4; ++i) {
-              for (int j = 1; j < 4; ++j) {
-                for (int k = j; k >= 0; k--) {
-                  if (board[k - 1][i] == 0) {
-                    board[k - 1][i] == board[k][i]; //spostamento elemento
-                  } else if (board[k - 1][i] != 0) { //elementi uguali
-                    valore = somma(board[k - 1][i], board[k][i]);
-                    if (valore != 0) { //possibile somma tra gli elementi
-                      board[k - 1][i] *= 2;
-                      board[k][i] == 0;
-                    } else {
-                      break; //impossibile somma tra gli elementi
-                    }
-
-                  }
-                }
-              }
+void moveDown() {
+   for (int i = 0; i < 4; ++i) {
+      for (int j = 2; j >= 0; --j) {
+         for (int k = j; k < 3; k++) {
+            if (board[k + 1][i] == 0) {
+               board[k + 1][i] = board[k][i]; //spostamento elemento
+               board[k][i] = 0;
             }
 
-            void moveUp() {
-                int valore = 0;
-                for (int i = 0; i < 4; ++i) {
-                  for (int j = 1; j < 4; ++j) {
-                    for (int k = j; k > 0; k--) {
-                      if (board[k - 1][i] == 0) {
-                        board[k - 1][i] == board[k][i]; //spostamento elemento
-                      } else if (board[k - 1][i] != 0) { //elementi uguali
-                        valore = somma(board[k - 1][i], board[k][i]);
-                        if (valore != 0) { //possibile somma tra gli elementi
-                          board[k - 1][i] *= 2;
-                          board[k][i] == 0;
-                        } else {
-                          break; //impossibile somma tra gli elementi
-                        }
+            else if ( board[k + 1][i] & board[k][i] ) {
+               board[k + 1][i] *= 2;
+               board[k][i] = 0;
+            } 
 
-                      }
-                    }
-                  }
-                }
+            else { break; }
+         } //* Fine Ciclo
+      }
+   }
+}
+
+void moveLeft() {
+   cout << "Suck ma booal";
+}
+void moveRight() {
+   cout << "Suck ma booal";
+}
+
+void printBoard() {
+   for (int i = 0; i < 4; ++i) {
+      for (int j = 0; j < 4; ++j) {
+         cout << "| " << board[i][j] << " |";
+      }
+      cout << endl;
+   }
+}
