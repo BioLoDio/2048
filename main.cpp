@@ -27,7 +27,7 @@ int main() {
       puts("\nInserire le azioni: W -> Up\tS -> Down\tA -> Left\tD -> Right\n(Premi P per uscire)\n\n");
       userMove();
       random();
-   } while (!gameOver() && userMove());
+   } while (!gameOver() && !userMove());
 
    return 0;
 }
