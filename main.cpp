@@ -13,16 +13,12 @@ class Game {
 	// Tavola
 		int board[4][4];
 	
-	
 	// Struttura delle mosse
-	char getMove() { 
-		char = getch();
-	}
-	
 	void Move (char move) {
+		char move = getch();
 		if ((move | 32) == 'w') { addUp(); }
-		if ((move | 32) == 'a') { addDown(); }
-		if ((move | 32) == 's') { addLeft(); }
+		if ((move | 32) == 's') { addDown(); }
+		if ((move | 32) == 'a') { addLeft(); }
 		if ((move | 32) == 'd') { addRight(); }	
 	}
 	
