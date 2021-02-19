@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <conio.h>
 
 using namespace std;
 
@@ -61,7 +62,7 @@ void startBoard() {
 }
 
 int userMove() {
-   char user_move = getchar();
+   char user_move = getch();
    user_move ^= 32;
 
    switch (user_move) {
