@@ -1,5 +1,19 @@
-#ifndef 2048_H_
-#define 2048_H_
+
+#ifndef HELLO_H_
+#define HELLO_H_
+#include <iostream>
+#include <time.h>
+#include <conio.h>
+
+int board[4][4] = {0};
+
+void random();
+void startBoard();
+
+void moveUp();
+void moveDown();
+void moveLeft();
+void moveRight();
 
 void random() {
   int i = 0;
@@ -142,35 +156,21 @@ void printBoard() {
    puts("\n");
    for (int i = 0; i < 4; ++i) {
       for (int j = 0; j < 4; ++j) {
-         cout << "| " << board[i][j] << " |";
+         printf("| %d |", board[i][j]);
       }
-      cout << endl;
+      puts("\n");
    }
 }
 
 int gameOver() {
 
    // Diagonali
-   if (board[0][0] == board[1][0] || board[0][0] == board[0][1]) { return 0; }
-   if (board[0][3] == board[0][2] || board[0][3] == board[1][3]) { return 0; }
-   if (board[3][0] == board[2][0] || board[3][0] == board[3][1]) { return 0; }
-   if (board[3][3] == board[2][3] || board[3][3] == board[3][2]) { return 0; }
-
-   if (board[0][1] == board[0][2]) { return 0; }
-   if (board[1][0] == board[2][0]) { return 0; }
-   if (board[3][1] == board[3][2]) { return 0; }
-   if (board[1][3] == board[2][3]) { return 0; }
-
-   for (int i = 1; i < 3; ++i) {
-      for (int j = 1; j < 3; ++j) {
-         if (board[i][j] == board[i-1][j] ||
-             board[i][j] == board[i+1][j] ||
-             board[i][j] == board[i][j-1] ||
-             board[i][j] == board[i][j+1]
-             ) { return 0; }
+   for (int i = 0; i < 4; ++i) {
+      for (int j = 0; j < 3; ++i) {
+         if (board[i][j] == board[i][j+1]) { return 0; }
+         if (board[j][i] == board[j+1][i]) { return 0; }
       }
    }
-
    return 1;
 }
 
