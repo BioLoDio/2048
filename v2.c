@@ -8,11 +8,11 @@ int *empty_space[16] = {NULL};
 int n_empty_space = 16;
 
 //* MANIPULAZIONE POSIZIONI
-int findPos(); //^ Cerca all'interno dell'Array "empty_space" una posizione con valore 0 , restituisce l'indice
-void popPos(int *position);  //^ Rimuove dall'Array "empty_space" una data posizione 
-void pushPos(int *position); //^ Inserisce nell'Array "empty_space" una data posizione
+int findPos();                //^ Cerca all'interno dell'Array "empty_space" una posizione con valore 0 , restituisce l'indice
+void popPos(int *position);   //^ Rimuove dall'Array "empty_space" una data posizione 
+void pushPos(int *position);  //^ Inserisce nell'Array "empty_space" una data posizione
 void getPos();
-void updatePos(); //^ Aggiorna tutte le posizioni 
+void updatePos();             //^ Aggiorna tutte le posizioni 
 
 //* MOSSE
 void moveUp();
@@ -33,17 +33,26 @@ int noMove();
 
 int main()
 {
+   int x;
    initializeGame();
    while (1) {
       printBoard();
-      getMove();
+      x = getMove();
+
+      if (x) {
+         puts("\nSayonara!");
+         break;
+      }
+
       system("cls");
       getPos();
 
-      if (noMove && !getMove) { break; }
+      if (noMove()) { 
+         puts("\nGame Over!");
+         break; 
+      }
    }
-   
-   puts("\nGame Over!");
+
    return 0;
 }
 
@@ -62,7 +71,7 @@ void popPos(int *position) {
    for (i = 0; empty_space[i] != position && i < n_empty_space; ++i) {}
 
    if (i < n_empty_space) { 
-      --n_empty_space;    //^ Decremento il numero di posizioni
+      --n_empty_space;                       //^ Decremento il numero di posizioni
       for (i ; i < n_empty_space; ++i) {
          empty_space[i] = empty_space[i+1];  //^ Shifting dell'array eliminando la posizione inserita
       }
