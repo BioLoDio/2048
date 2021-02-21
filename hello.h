@@ -16,18 +16,23 @@ void moveLeft();
 void moveRight();
 
 void random() {
-  int i = 0;
-  do {
-    srand(time(NULL));
-    int x = rand() % 4;
-    int y = rand() % 4;
-
-    if (board[x][y] == 0) {
-      board[x][y] = 2;
-      ++i;
-    }
-  } while (i < 1);
+	int *posizioniZero[16] = {0};
+	int index = 0;
+	int random;
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j< 4; j++){
+			if(board[i][j] == 0){
+			
+			posizioniZero[index] = &board[i][j];
+			index++;
+			}
+		}
+	}
+	random = rand()%index;
+	*posizioniZero[random] = 2;
+	
 }
+
 
 void startBoard() {
   int i = 0;
